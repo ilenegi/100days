@@ -68,7 +68,33 @@
     - 也有说实例量级不超过百万不值得使用 ref [slots详解](https://zhuanlan.zhihu.com/p/25930288)
 - 和静态方法比较类似，Python还可以在类中定义类方法，类方法的第一个参数约定名为cls，它代表的是当前类相关的信息的对象（类本身也是一个对象，有的地方也称之为类的元数据对象），通过这个参数我们可以获取和类相关的信息并且可以创建出类的对象.
 
+### day 10/100
+- 读取文件
 
+操作模式 | 具体含义
+:---: | :---:
+'r' | 读取 （默认
+'w'	|写入（会先截断之前的内容）
+'x'	|写入，如果文件已经存在会产生异常
+'a'	|追加，将内容写入到已有文件的末尾
+'b'	|二进制模式
+'t'	|文本模式（默认）
+'+'	|更新（既可以读又可以写）
 
-
-
+- 注意使用`try except`来捕获异常 e.g. 没有文件，编码不对之类。 可以参考[总结：Python中的异常处理](https://segmentfault.com/a/1190000007736783)
+    - `with`语句在打开文件后会自动调用`finally`并关闭文件。我们在写 Python 代码时应该尽量避免在遇到这种情况时还使用`try/except/finally`的思维来处理。
+    ```python
+    # should not
+    try:
+        f = open(a_file)
+        do_something(f)
+    finally:
+        f.close()
+    
+    # should 
+    with open(a_file) as f:
+        do_something(f)
+    ```
+- json 文件操作
+    - `dump` 需要带目标文件操作，`dumps`是将dict转化成str，`load`和`loads`也是类似
+    - 可以参考 [`load` vs `loads`, `dump` vs `dumps`](https://riptutorial.com/python/example/1041/-load--vs--loads----dump--vs--dumps-)
